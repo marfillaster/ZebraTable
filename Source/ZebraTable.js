@@ -32,6 +32,8 @@ var ZebraTable = new Class({
 	initialize: function(options) {
 		/* set options */
 		this.setOptions(options);
+
+                self.selected = [];
 		/* zebra-ize! */
 		$$(this.options.elements).each(function(table) {
 			this.zebraize(table);
@@ -60,8 +62,22 @@ var ZebraTable = new Class({
 					},
 					/* click */
 					click: function() {
-						tr.toggleClass(self.options.cssMouseEnter).toggleClass(self.options.cssHighlight);
-						if(!tr.hasClass(self.options.cssHighlight)) tr.removeClass(self.options.cssMouseEnter);
+            self.selected.each(function(el) {
+							if(el.hasClass(self.options.cssMouseEnter)) el.removeClass(self.options.cssMouseEnter);
+						});
+						
+						if(e.control) {
+							if(self.selected.every(function(el) {return el != tr;})) self.selected.push(tr);
+							else self.selected = self.selected.filter(function(el) {return el != tr;})	
+						}	
+						else {
+							self.selected = [];
+							self.selected.push(tr);
+						}	
+						
+						self.selected.each(function(el) {
+							el.addClass(self.options.cssMouseEnter);
+						});						
 					}
 				});
 			}
