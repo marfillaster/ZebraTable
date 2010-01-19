@@ -43,7 +43,8 @@ var ZebraTable = new Class({
 	/* a method that does whatever you want */
 	zebraize: function(table) {
 		/* for every row in this table... */
-		table.getElements('tr').each(function(tr,i) {
+		var rows =  $chk(table.getElement('tbody')) ? table.getElement('tbody').getElements('tr') : table.getElements('tr');
+		rows.each(function(tr,i) {
 			/* check to see if the row has th's
 				if so, leave it alone
 				if not, move on */
