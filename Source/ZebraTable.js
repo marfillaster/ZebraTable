@@ -51,34 +51,36 @@ var ZebraTable = new Class({
 			if(tr.getFirst().get('tag') != 'th') {
 				/* set the class for this based on odd/even */
 				var self = this, klass = i % 2 ? self.options.even : self.options.odd;
+				if(!tr.hasClass(klass)) tr.addClass(klass);
+				
+
+				
 				/* start the events! */
 				tr.addClass(klass).addEvents({
 					/* mouseenter */
 					mouseenter: function () {
-						if(!tr.hasClass(self.options.cssHighlight)) tr.addClass(self.options.cssMouseEnter).removeClass(klass);
+						tr.addClass(self.options.cssHighlight);
 					},
 					/* mouseleave */
 					mouseleave: function () {
-						if(!tr.hasClass(self.options.cssHighlight)) tr.removeClass(self.options.cssMouseEnter).addClass(klass);
+						tr.removeClass(self.options.cssHighlight)
+						
 					},
 					/* click */
-					click: function() {
-            self.selected.each(function(el) {
+					click: function(e) {
+						self.selected.each(function(el) {
 							if(el.hasClass(self.options.cssMouseEnter)) el.removeClass(self.options.cssMouseEnter);
 						});
 						
 						if(e.control) {
-							if(self.selected.every(function(el) {return el != tr;})) self.selected.push(tr);
-							else self.selected = self.selected.filter(function(el) {return el != tr;})	
+							if(self.selected.every(function(el) {return el != tr})) self.selected.push(tr);
+							else self.selected = self.selected.filter(function(el) {return el != tr});								
 						}	
 						else {
 							self.selected = [];
 							self.selected.push(tr);
 						}	
-						
-						self.selected.each(function(el) {
-							el.addClass(self.options.cssMouseEnter);
-						});						
+						self.selected.each(function(el) {el.addClass(self.options.cssMouseEnter)});
 					}
 				});
 			}
