@@ -11,10 +11,10 @@ How to Use
 ZebraTable can be initialized at any time but is generally initialized at the top of the document during the page's normal load.  There are no required arguments -- only options.
 
 ### CSS
-  .odd td               {  }
-  .even td              { background:#efefef;}
-  .mo td                { background:#FFEB85; }
-  .highlight td         { background:#D2E1F6; }
+	.odd td               {  }
+	.even td              { background:#efefef;}
+	.mo td                { background:#FFEB85; }
+	.highlight td         { background:#D2E1F6; }
 
 ### Javascript
 	var zebraTables = new ZebraTable({
